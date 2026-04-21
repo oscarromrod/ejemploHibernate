@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "recintos")
@@ -27,5 +31,8 @@ public class Recinto {
     @Column(name = "es_techado")
     private boolean techado;
 
+    @OneToMany(mappedBy = "recinto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private List<Evento> eventos = new ArrayList<>();
 }
 

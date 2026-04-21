@@ -1,6 +1,7 @@
 package services;
 
 import entities.Recinto;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
@@ -79,6 +80,26 @@ public class RecintosDAO {
             if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
             }
+        } finally {
+            session.close();
+        }
+    }
+
+    //READ (POR ID) --------------------------------------
+    public static Recinto findByIdWithEventos(Long id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Recinto recinto = session.find(Recinto.class, id);
+            if (recinto != null) {
+                //Cargamos eventos de ese recinto en el objeto
+                Hibernate.initialize(recinto.getEventos());
+                return recinto;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.err.println("❌ Error al cargar el recinto con eventos: " + e.getMessage());
+            return null;
         } finally {
             session.close();
         }
