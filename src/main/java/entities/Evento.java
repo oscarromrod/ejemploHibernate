@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "eventos")
@@ -41,5 +43,9 @@ public class Evento {
     @ToString.Exclude
     private Recinto recinto;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "evento_asistente", joinColumns = @JoinColumn(name = "evento_id"), inverseJoinColumns = @JoinColumn(name = "asistente_id"))
+    @ToString.Exclude
+    private List<Asistente> asistentes = new ArrayList<>();
 
 }
