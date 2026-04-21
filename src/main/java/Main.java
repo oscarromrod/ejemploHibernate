@@ -63,5 +63,11 @@ public class Main {
         r2.getEventos().forEach(System.out::println);
 
         EventosDAO.findByEstadoProgramado().forEach(System.out::println);
+        EventosDAO.findOrderByFecha().forEach(System.out::println);
+        EventosDAO.findByCategory("Teatro").forEach(System.out::println);
+        EventosDAO.getEventoByCiudadRecinto("Murcia").forEach(System.out::println);
+
+
+
     }
 }

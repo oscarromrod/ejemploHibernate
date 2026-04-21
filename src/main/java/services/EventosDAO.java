@@ -10,7 +10,7 @@ import java.util.List;
 public class EventosDAO {
 
     //CREATE (EVENTO) --------------------------------------
-    public static void create (Evento evento){
+    public static void create(Evento evento) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
@@ -19,7 +19,7 @@ public class EventosDAO {
             System.out.println("✅ Recinto guardado con id: " + evento.getId());
         } catch (Exception e) {
             System.err.println("❌ Error al guardar evento: " + e.getMessage());
-            if (session.getTransaction() != null){
+            if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
             }
         } finally {
@@ -44,7 +44,7 @@ public class EventosDAO {
     }
 
     //UPDATE (RECINTO) --------------------------------------
-    public static void update (Evento evento){
+    public static void update(Evento evento) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
@@ -53,7 +53,7 @@ public class EventosDAO {
             System.out.println("✅ Evento actualizado con id: " + evento.getId());
         } catch (Exception e) {
             System.err.println("❌ Error al actualizar evento: " + e.getMessage());
-            if (session.getTransaction() != null){
+            if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
             }
         } finally {
@@ -86,10 +86,34 @@ public class EventosDAO {
     }
 
     //CONSULTAS HQL --------------------------------------
-    public static  List<Evento> findByEstadoProgramado(){
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+    public static List<Evento> findByEstadoProgramado() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM Evento e WHERE e.estado = PROGRAMADO", Evento.class).list();
         }
     }
-}
 
+    public static List<Evento> findOrderByFecha() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Evento e ORDER BY e.fechaEvento ASC", Evento.class).list();
+        }
+    }
+
+    public static List<Evento> findByCategory(String category) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Evento e WHERE e.categoria = :categ",
+                            Evento.class)
+                    .setParameter("categ", category) //Evitar SQL Injection
+                    .list();
+        }
+    }
+
+    public static List<Evento> getEventoByCiudadRecinto(String city) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Evento e JOIN FETCH e.recinto r " + "WHERE r.ciudad = :ciudad",
+                            Evento.class)
+                    .setParameter("ciudad", city) //Evitar SQL Injection
+                    .list();
+        }
+    }
+
+}
