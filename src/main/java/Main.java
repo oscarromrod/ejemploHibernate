@@ -61,5 +61,7 @@ public class Main {
 
         IO.println(r2);
         r2.getEventos().forEach(System.out::println);
+
+        EventosDAO.findByEstadoProgramado().forEach(System.out::println);
     }
 }
