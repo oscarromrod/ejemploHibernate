@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MySQL Cati" uuid="f98bc1d1-46af-4598-9455-d9b8240085a9">
+    <data-source source="LOCAL" name="MySQL Java" uuid="f98bc1d1-46af-4598-9455-d9b8240085a9">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
