@@ -39,5 +39,10 @@ public class Main {
         Recinto r2 = new Recinto(null, "Sala BSide",
                 "Murcia", 500, true);
         RecintosDAO.create(r2);
+
+        r2.setAforo(1000);
+        RecintosDAO.update(r2);
+
+        RecintosDAO.delete(3L);
     }
 }
