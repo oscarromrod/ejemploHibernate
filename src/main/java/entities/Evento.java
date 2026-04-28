@@ -48,4 +48,6 @@ public class Evento {
     @ToString.Exclude
     private List<Asistente> asistentes = new ArrayList<>();
 
+
+
 }
